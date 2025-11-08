@@ -174,6 +174,7 @@ function isValueEqualsIndex(arr) {
  */
 function insertItem(arr, item, index) {
   arr.splice(index, 0, item);
+  return arr;
 }
 
 /**
@@ -268,8 +269,17 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+function createNDimensionalArray(n, size) {
+  if (n <= 0 || size <= 0) throw new Error('Invalid dimensions');
+  if (n === 1) {
+    // Base case: 1-dimensional array
+    return Array(size).fill(0);
+  }
+
+  // Recursive case: create an array of size 'size', each element is (n-1)-dimensional
+  return Array(size)
+    .fill(null)
+    .map(() => createNDimensionalArray(n - 1, size));
 }
 
 /**
